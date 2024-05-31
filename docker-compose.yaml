@@ -2,6 +2,16 @@
 
 version: '3.7' # (this is the docker compose version, not RecipeSage version)
 services:
+  proxy: # The proxy must not be removed. If needed, point your own proxy to this container, rather than removing this
+    container_name: recipesage_proxy
+    image: julianpoy/recipesage-selfhost-proxy:v4.0.0
+    ports:
+    - 7270:80
+    depends_on:
+      - static
+      - api
+      - pushpin
+    restart: unless-stopped
   static: # Hosts frontend assets
     container_name: recipesage_static
     image: julianpoy/recipesage-selfhost:static-v2.13.3
