@@ -16,11 +16,11 @@ services:
       - traefik.http.middlewares.gzip.compress=true
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.routers.http-0-rggsk4k.entryPoints=http
-      - 'traefik.http.routers.http-0-rggsk4k.rule=Host(`icckggs.app.stri.nz`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.http-0-rggsk4k.rule=Host(`recipes.app.stri.nz`) && PathPrefix(`/`)'
       - traefik.http.routers.http-0-rggsk4k.service=http-0-rggsk4k
       - traefik.http.routers.https-0-rggsk4k.entryPoints=https
       - traefik.http.routers.https-0-rggsk4k.middlewares=gzip
-      - 'traefik.http.routers.https-0-rggsk4k.rule=Host(`icckggs.app.stri.nz`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.https-0-rggsk4k.rule=Host(`recipes.app.stri.nz`) && PathPrefix(`/`)'
       - traefik.http.routers.https-0-rggsk4k.service=https-0-rggsk4k
       - traefik.http.routers.https-0-rggsk4k.tls.certresolver=letsencrypt
       - traefik.http.routers.https-0-rggsk4k.tls=true
@@ -31,7 +31,7 @@ services:
       - 'caddy_0.handle_path=/*'
       - caddy_0.header=-Server
       - 'caddy_0.try_files={path} /index.html /index.php'
-      - 'caddy_0=https://icckggs.app.stri.nz'
+      - 'caddy_0=https://recipes.app.stri.nz'
       - caddy_ingress_network=y4kccso
       - coolify.managed=true
       - coolify.version=4.0.0-beta.293
