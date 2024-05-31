@@ -1,7 +1,10 @@
 services:
   proxy:
-    container_name: proxy-y4kccso-155039122172
-    image: 'julianpoy/recipesage-selfhost-proxy:v4.0.0'
+    container_name: proxy-y4kccso-162127422783
+    # image: 'julianpoy/recipesage-selfhost-proxy:v4.0.0'
+    build:
+      context: src/proxy
+      dockerfile: Dockerfile
     ports:
       - '7270:80'
     depends_on:
@@ -37,7 +40,7 @@ services:
       - coolify.version=4.0.0-beta.293
       - coolify.applicationId=3
       - coolify.type=application
-      - coolify.name=proxy-y4kccso-155039122172
+      - coolify.name=proxy-y4kccso-162127422783
       - coolify.pullRequestId=0
   static:
     container_name: static-y4kccso-155039124718
@@ -53,7 +56,7 @@ services:
       - coolify.name=static-y4kccso-155039124718
       - coolify.pullRequestId=0
   api:
-    container_name: api-y4kccso-155039125038
+    container_name: api-y4kccso-162127422783
     image: 'julianpoy/recipesage-selfhost:api-v2.13.3'
     depends_on:
       - postgres
@@ -91,14 +94,19 @@ services:
       - 'apimedia:/rs-media'
     restart: unless-stopped
     networks:
-      y4kccso: null
+      - y4kccso
     labels:
       - coolify.managed=true
       - coolify.version=4.0.0-beta.293
       - coolify.applicationId=3
       - coolify.type=application
-      - coolify.name=api-y4kccso-155039125038
+      - coolify.name=api-y4kccso-162127422783
       - coolify.pullRequestId=0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   typesense:
     container_name: typesense-y4kccso-155039125406
     image: 'typesense/typesense:0.24.1'
